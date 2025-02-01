@@ -50,6 +50,20 @@ install_tmux() {
   echo "Tmux installed succesfully"
 }
 
+install_tpm(){
+  echo "Installing TPM..."
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  
+  if [ ! -f ~/.tmux.conf ]; then
+    touch ~/.tmux.conf
+  fi
+
+  cp tmux/.tmux.conf ~/.tmux.conf
+  echo "Tmux installed succesfully"
+  echo "Open a new tmux session and press 'prefix + I' to install all plugins"
+
+}
+
 install_fonts() {
   echo "Installing Fonts..."
   mkdir -p ~/.fonts
@@ -87,6 +101,7 @@ else
   install_zsh
   install_oh_my_zsh
   install_tmux
+  install_tpm
   install_fonts
   install_spaceship_theme
 fi
