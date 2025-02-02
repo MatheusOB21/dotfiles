@@ -1,0 +1,42 @@
+{
+    "files.trimFinalNewlines": true, // removes blank lines in the file end
+    "files.trimTrailingWhitespace": true, // removes blank spaces in the final of each line
+    "files.insertFinalNewline": true, // insere uma linha vazia no final de cada arquivo (se não houver)
+    "[javascript]": {
+      "editor.tabSize": 4, // sets the tab size to two, in files with an extension .js
+      "prettier.singleQuote": false // define uso de aspas simples em arquivos com a extensão js
+    },
+    "[ruby]": {
+      "editor.tabSize": 2, // sets the tab size to two, in files with an extension .rb
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,  // define uso de aspas simples em arquivos com a extensão js
+    },
+    "[erb]": {
+      "editor.tabSize": 4, // sets the tab size to two, in files with an extension .rb
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,  // define uso de aspas simples em arquivos com a extensão js
+    },
+  
+    "git.ignoreLimitWarning": true,
+  
+    "editor.fontSize": 14,
+    "editor.lineHeight": 1.8, //size of screen
+    "editor.renderLineHighlight": "gutter",
+    "editor.rulers": [120, 120],
+    "editor.fontLigatures": true,
+    "editor.minimap.enabled": false,
+    "breadcrumbs.enabled": false, //disable breadcrumb
+    "explorer.compactFolders": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.editor.labelFormat": "short",
+    "workbench.activityBar.location": "default",
+    "workbench.statusBar.visible": false,
+    "editor.cursorStyle": "block",
+    // we try to make semantic highlighting look good
+    "editor.semanticHighlighting.enabled": true,
+    // prevent VSCode from modifying the terminal colors
+    "terminal.integrated.minimumContrastRatio": 1,
+    // make the window's titlebar use the workbench colors
+    "window.titleBarStyle": "custom",
+  }
+  
