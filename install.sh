@@ -40,7 +40,7 @@ install_curl() {
 
 install_oh_my_zsh() {
   echo "Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   echo "Zsh installed succesfully"
 }
 
@@ -61,25 +61,23 @@ install_tpm(){
   cp tmux/.tmux.conf ~/.tmux.conf
   echo "Tmux installed succesfully"
   echo "Open a new tmux session and press 'prefix + I' to install all plugins"
-
 }
 
 install_fonts() {
   echo "Installing Fonts..."
-  mkdir -p ~/.fonts
-  cp -a ./fonts/. ~/.fonts
-  fc-cache -fv
+  sudo mkdir -p ~/.fonts
+  sudo cp -a ./fonts/. ~/.fonts
+  sudo fc-cache -fv
   echo "Fonts installed"
 }
 
 install_spaceship_theme() {
   echo "Installing Spaceship theme..."
-  mkdir -p "$ZSH_CUSTOM/themes/spaceship-prompt"
-  cp -r ./zsh/themes/spaceship-prompt "$ZSH_CUSTOM/themes/"
-  ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-  mkdir -p ~/.config 
-  cp ./zsh/spaceship.zsh ~/.config
-  cp ./zsh/.zshrc ~/.zshrc
+  sudo git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+  sudo ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+  sudo mkdir -p ~/.config 
+  sudo cp ./zsh/spaceship.zsh ~/.config
+  sudo cp ./zsh/.zshrc ~/.zshrc
   source ~/.zshrc
   echo "Spaceship theme installed succesfully"
 }
@@ -92,16 +90,18 @@ install_catppuccin_theme() {
 
 if [ -d "$HOME/dotfiles" ]
 then
-  echo "Installing Dotfiles"
-else
   echo "You already installed the Dotfile"
+else
+  echo "Installing Dotfiles"
   update_system
-  install_vscode
+  install_curl
   install_git
+  install_vscode
   install_zsh
   install_oh_my_zsh
   install_tmux
   install_tpm
   install_fonts
   install_spaceship_theme
+  install_catppuccin_theme
 fi
