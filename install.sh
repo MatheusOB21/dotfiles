@@ -1,7 +1,30 @@
+#! bin/bash
+
 update_system(){
   echo "Updating the system..."
   sudo apt update && sudo apt upgrade -y
   echo "System updated successfully"
+}
+
+install_default_text_editor(){
+    PS3='Please enter your default text editor: '
+    options=("Install Vscode" "Install Vim")
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            "Install Vscode")
+                echo "You chose to install VSCode"
+                install_vscode
+                ;;
+            "Install Vim")
+                echo "You chose to install Vim"
+                install_vim
+                ;;
+            *)
+                echo "Invalid option: $REPLY"
+                ;;
+        esac
+    done
 }
 
 install_vscode() {
@@ -11,7 +34,7 @@ install_vscode() {
   sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
   sudo apt update
   sudo apt install -y code
-  echo "Vscode installed successfully" 
+  echo "Vscode installed successfully"
 }
 
 install_vim() {
@@ -20,7 +43,7 @@ install_vim() {
   echo "Vim installed successfully"
 }
 
-install_git() { 
+install_git() {
   echo "Installing Git..."
   sudo apt install -y git
   echo "Git installed successfully"
@@ -53,7 +76,7 @@ install_tmux() {
 install_tpm(){
   echo "Installing TPM..."
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  
+
   if [ ! -f ~/.tmux.conf ]; then
     touch ~/.tmux.conf
   fi
@@ -75,7 +98,7 @@ install_spaceship_theme() {
   echo "Installing Spaceship theme..."
   sudo git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
   sudo ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-  sudo mkdir -p ~/.config 
+  sudo mkdir -p ~/.config
   sudo cp ./zsh/spaceship.zsh ~/.config
   sudo cp ./zsh/.zshrc ~/.zshrc
   source ~/.zshrc
@@ -96,7 +119,7 @@ else
   update_system
   install_curl
   install_git
-  install_vscode
+  install_default_text_editor
   install_zsh
   install_oh_my_zsh
   install_tmux
