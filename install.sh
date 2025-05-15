@@ -8,7 +8,7 @@ update_system(){
 
 install_default_text_editor(){
     PS3='Please enter your default text editor: '
-    options=("Install vscode" "Install vim")
+    options=("Install vscode" "Install nvim" "Install vscode and vim")
     select opt in "${options[@]}"
     do
         case $opt in
@@ -18,8 +18,14 @@ install_default_text_editor(){
                 break
                 ;;
             "Install vim")
-                echo "You chose to install Vim"
-                install_vim
+                echo "You chose to install Nvim"
+                install_nvim
+                break
+                ;;
+            "Install vscode and vim")
+                echo "You chose to install Vscode and Nvim"
+                install_vscode
+                install_nvim
                 break
                 ;;
             *)
@@ -39,10 +45,10 @@ install_vscode() {
   echo "Vscode installed successfully"
 }
 
-install_vim() {
-  echo "Installing Vim..."
-  sudo apt install -y vim
-  echo "Vim installed successfully"
+install_nvim() {
+  echo "Installing Nvim..."
+  sudo apt install -y neovim
+  echo "Nvim installed successfully"
 }
 
 install_git() {
@@ -98,6 +104,7 @@ install_fonts() {
 
 install_spaceship_theme() {
   echo "Installing Spaceship theme..."
+  zsh
   sudo git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
   sudo ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
   sudo mkdir -p ~/.config
@@ -136,6 +143,7 @@ install_docker(){
   # Create the docker user group
   sudo groupadd docker
   sudo usermod -aG docker $USER
+  newgrp docker
 
   # Configure Docker to start on boot with systemd
   sudo systemctl enable docker.service
@@ -160,5 +168,6 @@ else
   install_fonts
   install_spaceship_theme
   install_catppuccin_theme
+  install_docker
   echo "Dotfile installed successfully"
 fi
